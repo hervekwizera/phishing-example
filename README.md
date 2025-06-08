@@ -49,8 +49,10 @@ Edit
 npm run dev
 
 
+
 🌐 Expose Server Using Ngrok (Optional)
 To simulate public phishing behavior:
+
 
 Install ngrok
 
@@ -62,11 +64,16 @@ Edit
 ngrok http 3000
 You’ll get a public URL like:
 
+
+
 lua
 Copy
 Edit
 https://random-name.ngrok.io
 Use this as your fake phishing link for testing.
+
+
+
 
 🧪 How to Test
 Visit http://localhost:3000 (or ngrok URL)
@@ -74,6 +81,8 @@ Visit http://localhost:3000 (or ngrok URL)
 Enter fake credentials
 
 Check logs/creds.txt to see captured data
+
+
 
 🛡️ How This Helps Security Teams
 This tool helps in:
