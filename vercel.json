@@ -1,5 +1,0 @@
-{
-  "rewrites": [
-    { "source": "/steal", "destination": "/api/steal" }
-  ]
-}
